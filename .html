@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .ztable{
+     background: url(https://www.z-table.com/uploads/2/1/7/9/21795380/9340559_orig.png);
+     background-size: cover;
+     width: 50rem;
+     height: 50rem;
+     border: black 1px;
+     position: relative;
+     top: 15px;
+     bottom: 15px;
+    }
+    #inputBox1 {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #inputBox2 {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #inputBox3 {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #inputBox4 {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #inputBox5 {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 16px;
+            position: absolute;
+        }
+   .movement{
+    position: relative;
+    bottom: 0;
+    right: 0;
+   }     
+   .compare{
+    display: none;
+   }
+</style>
+<body>
+  <div class="ztable"></div>
+  <div class="movement">
+  <div>
+    <label for="inputBox1">Enter a Population-Mean:</label>
+    <input type="text" id="inputBox1" />
+   
+</div>
+
+<div>
+  <label for="inputBox2">Enter sample-Mean:</label>
+  <input type="text" id="inputBox2" />
+  
+</div>
+
+<div>
+  <label for="inputBox3">Enter standard-deviation:</label>
+  <input type="text" id="inputBox3" />
+  
+</div>
+
+<div>
+  <label for="inputBox4">Enter sample number:</label>
+  <input type="text" id="inputBox4" />
+  
+</div>
+<div>
+  <label for="inputBox6">Enter alpha number:</label>
+  <input type="text" id="inputBox6" />
+  
+</div>
+<button onclick="calculateZScore()">Calculate Z-Score</button>
+</div>
+<div id="alpha" class="compare" style="position: absolute; ;right: 20rem; bottom: -15rem;">
+  <label for="inputBox5">Enter Z-Score-compare to Alpha:</label>
+  <input type="text" id="inputBox5" />
+  <button onclick="Compare()">Calculate Z-Score</button>
+</div>
+
+
+    <script>
+
+const Z_Score= function(x,u,std,n){
+   return (x-u)/(std/Math.sqrt(n));
+}
+function calculateZScore() {
+            const inputBoxValue1 = parseFloat(document.getElementById('inputBox1').value);
+            const inputBoxValue2 = parseFloat(document.getElementById('inputBox2').value);
+            const inputBoxValue3 = parseFloat(document.getElementById('inputBox3').value);
+            const inputBoxValue4 = parseFloat(document.getElementById('inputBox4').value);
+            
+
+            const result = Z_Score(inputBoxValue1, inputBoxValue2, inputBoxValue3, inputBoxValue4 );
+           let open= alert(`Result: ${result.toFixed(2)}`);
+   
+           document.getElementById('alpha').style.display = 'flex';
+        }
+
+        function Compare() {
+            const Z_Score_table = parseFloat(document.getElementById('inputBox5').value);
+            const alpha = parseFloat(document.getElementById('inputBox6').value);
+
+            const decision = Z_Score_table < alpha ? 2 : 1;
+
+            conclusion(decision);
+        }
+
+        function conclusion(decision) {
+            if (decision === 2) {
+                alert("We fail to reject the Ho");
+            } else if (decision === 1) {
+                alert("We accept Ha");
+            }
+        }
+
+</script>
+</body>
+</html>
